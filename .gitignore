@@ -102,3 +102,10 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Docs
+Coding_Challenge/
+Coding_Challenge.zip
+
+# IntelliJ
+.idea/

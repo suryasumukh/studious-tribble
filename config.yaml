@@ -1,0 +1,5 @@
+num_scrapers: 2
+num_aggregators: 1
+
+servers:
+  path: Coding_Challenge/servers.txt

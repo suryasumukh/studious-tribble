@@ -34,9 +34,14 @@ class Server(namedtuple('AServer', ['server'])):
         return self.server
 
 
+class TestResponse(namedtuple('TestResponse', ['status_code', 'response'])):
+    def json(self):
+        return self.response
+
+
 class TestServer(namedtuple('Temp', ['server_url', 'response'])):
     def poke(self):
-        return 200, self.response
+        return TestResponse(200, self.response)
 
     def __repr__(self):
         return self.server_url
@@ -57,6 +62,11 @@ class Report(object):
         for (app_name, version), count in self._app_version.items():
             rate = count / self._app[app_name]
             logger.info('App: {}, Version: {}, Success Rate: {}'.format(app_name, version, rate))
+
+    def print_to_stdout(self):
+        for (app_name, version), count in self._app_version.items():
+            rate = count / self._app[app_name]
+            print('App: {}, Version: {}, Success Rate: {}'.format(app_name, version, rate))
 
     def save(self, filename):
         with open(filename, 'w') as fh:
@@ -164,6 +174,7 @@ class App(object):
         logger.info('Waiting for Scrapers/Aggregators to complete...')
 
         self._report.log_to_stdout()
+        self._report.print_to_stdout()
         self._report.save('report.csv')
 
 

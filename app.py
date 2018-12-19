@@ -118,7 +118,7 @@ class Scraper(Thread):
             elif response.status_code == 404:
                 logger.error('Server {} has no /status endpoint'.format(server))
             else:
-                logger.error('Server {} returned {}, retrying later'.format(server, rcode))
+                logger.error('Server {} returned {}, retrying later'.format(server, response.status_code))
                 self.source.put(server)
             self.source.task_done()
 
